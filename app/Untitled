@@ -1,0 +1,93 @@
+<div className="top-bar-right">
+            <div className="status-dot">NEURAL CORE ONLINE</div>
+
+            {/* Model Selector */}
+            <div style={{ position: 'relative' }}>
+              <button
+                onClick={() => setShowModelMenu(p => !p)}
+                style={{
+                  background: 'rgba(0,229,255,0.07)',
+                  border: '1px solid var(--border-bright)',
+                  borderRadius: '10px',
+                  padding: '6px 12px',
+                  color: 'var(--text)',
+                  fontSize: '12px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '7px',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                <span style={{
+                  background: selectedModel.color,
+                  color: '#fff',
+                  fontSize: '9px',
+                  fontWeight: '800',
+                  padding: '2px 6px',
+                  borderRadius: '5px',
+                  letterSpacing: '0.5px',
+                }}>{selectedModel.badge}</span>
+                {selectedModel.name}
+                <span style={{ color: 'var(--muted)', fontSize: '10px' }}>▾</span>
+              </button>
+
+              {showModelMenu && (
+                <div style={{
+                  position: 'absolute',
+                  top: '110%',
+                  right: 0,
+                  background: '#041424',
+                  border: '1px solid var(--border-bright)',
+                  borderRadius: '14px',
+                  padding: '8px',
+                  zIndex: 999,
+                  minWidth: '240px',
+                  boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
+                }}>
+                  <div style={{ fontSize: '10px', color: 'var(--muted)', fontWeight: '700', letterSpacing: '1px', padding: '4px 10px 8px' }}>
+                    SELECT AI MODEL
+                  </div>
+                  {AI_MODELS.map(m => (
+                    <button
+                      key={m.id}
+                      onClick={() => { setSelectedModel(m); setShowModelMenu(false); }}
+                      style={{
+                        width: '100%',
+                        background: selectedModel.id === m.id ? 'rgba(0,229,255,0.08)' : 'transparent',
+                        border: selectedModel.id === m.id ? '1px solid var(--border-bright)' : '1px solid transparent',
+                        borderRadius: '10px',
+                        padding: '10px 12px',
+                        color: 'var(--text)',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        marginBottom: '4px',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <span style={{
+                        background: m.color,
+                        color: '#fff',
+                        fontSize: '9px',
+                        fontWeight: '800',
+                        padding: '2px 7px',
+                        borderRadius: '5px',
+                        minWidth: '48px',
+                        textAlign: 'center',
+                        letterSpacing: '0.5px',
+                      }}>{m.badge}</span>
+                      <div>
+                        <div style={{ fontSize: '13px', fontWeight: '600' }}>{m.name}</div>
+                        <div style={{ fontSize: '11px', color: 'var(--muted)' }}>{m.desc}</div>
+                      </div>
+                      {selectedModel.id === m.id && (
+                        <span style={{ marginLeft: 'auto', color: 'var(--pulse)', fontSize: '14px' }}>✓</span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
